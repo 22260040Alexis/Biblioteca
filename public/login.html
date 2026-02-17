@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Biblioteca Municipal - Acceso</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=playfair-display:400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .playfair { font-family: 'Playfair Display', serif; }
+        .form-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.05);
+            outline: none;
+        }
+        .social-button:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header simple -->
+    <header class="bg-white border-b border-gray-200 py-4">
+        <div class="container mx-auto px-4">
+            <a href="/" class="playfair text-2xl font-bold text-gray-900">Biblioteca<span class="text-blue-600">Municipal</span></a>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        
+        <!-- Título principal -->
+        <div class="text-center mb-12">
+            <h1 class="playfair text-3xl md:text-4xl font-bold text-gray-900 mb-4">Biblioteca Municipal</h1>
+            <p class="text-lg text-gray-600">Accede a tu cuenta o regístrate para disfrutar de todos nuestros servicios</p>
+        </div>
+
+        <!-- Grid 2 columnas -->
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+            
+            <!-- ========== COLUMNA IZQUIERDA: INICIAR SESIÓN ========== -->
+            <div class="bg-white rounded-xl border border-gray-200 p-8">
+                <h2 class="playfair text-2xl font-bold text-gray-900 mb-2">Iniciar Sesión</h2>
+                <p class="text-gray-600 text-sm mb-6">Accede a tu cuenta de la biblioteca</p>
+                
+                <form class="space-y-5">
+                    <!-- Correo electrónico -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               placeholder="usuario@ejemplo.com"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                    </div>
+                    
+                    <!-- Contraseña -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                        <input type="password" 
+                               id="password" 
+                               name="password" 
+                               placeholder="Introduce tu contraseña"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                    </div>
+                    
+                    <!-- Recordar sesión -->
+                    <div class="flex items-center">
+                        <input type="checkbox" 
+                               id="remember" 
+                               name="remember" 
+                               class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="remember" class="ml-2 block text-sm text-gray-600">Recordar sesión</label>
+                    </div>
+                    
+                    <!-- Botón Iniciar Sesión -->
+                    <button type="submit" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200 text-sm">
+                        Iniciar Sesión
+                    </button>
+                    
+                    <!-- Separador O -->
+                    <div class="relative my-4">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center text-xs">
+                            <span class="px-3 bg-white text-gray-500">O</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Google -->
+                    <button type="button" 
+                            class="social-button w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200 text-sm">
+                        <i class="fab fa-google mr-2 text-gray-600"></i>
+                        <span class="text-gray-700 font-medium">Google</span>
+                    </button>
+                    
+                    <!-- Link a registro -->
+                    <p class="text-center text-sm text-gray-600 mt-4">
+                        ¿No tienes una cuenta? 
+                        <a href="#registro" class="text-blue-600 hover:text-blue-700 font-medium">Regístrate aquí</a>
+                    </p>
+                </form>
+            </div>
+            
+            <!-- ========== COLUMNA DERECHA: CREAR CUENTA ========== -->
+            <div id="registro" class="bg-white rounded-xl border border-gray-200 p-8">
+                <h2 class="playfair text-2xl font-bold text-gray-900 mb-2">Crear Cuenta</h2>
+                <p class="text-gray-600 text-sm mb-6">Regístrate para acceder a todos los servicios</p>
+                
+                <form class="space-y-5">
+                    <!-- Nombre y Apellido - Grid 2 columnas -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                            <input type="text" 
+                                   id="nombre" 
+                                   name="nombre" 
+                                   placeholder="Tu nombre"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                        </div>
+                        <div>
+                            <label for="apellido" class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                            <input type="text" 
+                                   id="apellido" 
+                                   name="apellido" 
+                                   placeholder="Tu apellido"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                        </div>
+                    </div>
+                    
+                    <!-- Correo electrónico -->
+                    <div>
+                        <label for="email-registro" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        <input type="email" 
+                               id="email-registro" 
+                               name="email" 
+                               placeholder="usuario@ejemplo.com"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                        <p class="text-xs text-gray-500 mt-1">Usaremos este email para contactarte</p>
+                    </div>
+                    
+                    <!-- Contraseña -->
+                    <div>
+                        <label for="password-registro" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                        <input type="password" 
+                               id="password-registro" 
+                               name="password" 
+                               placeholder="Crea una contraseña"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                    </div>
+                    
+                    <!-- Repetir Contraseña -->
+                    <div>
+                        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">Repetir Contraseña</label>
+                        <input type="password" 
+                               id="password-confirm" 
+                               name="password_confirmation" 
+                               placeholder="Repite tu contraseña"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
+                        <p class="text-xs text-gray-500 mt-1">Mínimo 6 caracteres</p>
+                    </div>
+                    
+                    <!-- Términos y condiciones -->
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input type="checkbox" 
+                                   id="terminos" 
+                                   name="terminos" 
+                                   class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        </div>
+                        <div class="ml-3 text-xs text-gray-600 leading-relaxed">
+                            <label for="terminos">
+                                Acepto los términos y condiciones y la política de privacidad de la Biblioteca Municipal. Confirmo que soy mayor de 14 años.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón Crear Cuenta -->
+                    <button type="submit" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200 text-sm">
+                        Crear Cuenta
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========== SECCIÓN INFERIOR: PRIMERA VEZ ========== -->
+        <div class="mt-12 bg-blue-50 border border-blue-100 rounded-xl p-8">
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="playfair text-xl font-bold text-gray-900 mb-3">¿Primera vez en la biblioteca?</h3>
+                    <p class="text-gray-700 text-sm md:text-base">
+                        Si es tu primera visita, necesitarás registrarte para acceder a nuestros servicios de préstamo de libros, reservas y eventos.
+                    </p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-700 font-medium">
+                        ¿Ya tienes una cuenta? 
+                        <a href="#iniciar-sesion" class="text-blue-600 hover:text-blue-800 font-bold">Inicia sesión aquí</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-600 text-xs md:text-sm">
+            <p>&copy; 2026 Biblioteca Municipal. Todos los derechos reservados.</p>
+            <p class="mt-1">Imágenes cortesía de Unsplash (libres de derechos)</p>
+        </div>
+    </footer>
+
+    <h1>Footer 12</h1>
+
+
+    <!-- JavaScript para menú hamburguesa -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuToggle.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
