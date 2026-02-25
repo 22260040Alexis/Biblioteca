@@ -17,7 +17,7 @@
             <p class="text-sm text-gray-600">Administra el catálogo de libros de la biblioteca</p>
         </div>
         <div>
-            <a href="#" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+            <a href="{{ route('libros.create') }}" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 Agregar libro
             </a>
@@ -67,59 +67,29 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @if(isset($books) && count($books) > 0)
-                        @foreach($books as $book)
+                       @if(isset($libros) && count($libros) > 0)
+                        @foreach($libros as $libro)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $book->titulo }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $book->autor }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $book->isbn ?? '—' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">{{ $book->categoria ?? 'General' }}</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $libro->nombre }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $libro->autor }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $libro->isbn ?? '—' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">{{ $libro->categoria?->nombre ?? 'General' }}</span></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                @if(isset($book->disponible) && !$book->disponible)
-                                    <span class="text-red-600 font-medium">Prestado</span>
-                                @else
+                                @if((int) $libro->estatus === 1)
                                     <span class="text-green-600 font-medium">Disponible</span>
+                                @else
+                                    <span class="text-red-600 font-medium">No disponible</span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="#" class="text-blue-600 hover:underline mr-4">Editar</a>
+                                <a href="{{ route('libros.edit', $libro->id) }}" class="text-blue-600 hover:underline mr-4">Editar</a>
                                 <a href="#" class="text-red-600 hover:underline">Eliminar</a>
                             </td>
                         </tr>
                         @endforeach
                     @else
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cien años de soledad</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Gabriel García Márquez</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">978-0307474728</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">Literatura</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="text-green-600 font-medium">Disponible</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-blue-600 hover:underline mr-4">Editar</a>
-                            <a href="#" class="text-red-600 hover:underline">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1984</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">George Orwell</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">978-0451524935</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs">Ciencia Ficción</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="text-red-600 font-medium">Prestado</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-blue-600 hover:underline mr-4">Editar</a>
-                            <a href="#" class="text-red-600 hover:underline">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Don Quijote de la Mancha</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Miguel de Cervantes</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">978-8420732855</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">Literatura</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="text-green-600 font-medium">Disponible</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-blue-600 hover:underline mr-4">Editar</a>
-                            <a href="#" class="text-red-600 hover:underline">Eliminar</a>
-                        </td>
+                        <td colspan="6" class="px-6 py-4 text-sm text-gray-500 text-center">No hay libros registrados.</td>
                     </tr>
                     @endif
                 </tbody>
