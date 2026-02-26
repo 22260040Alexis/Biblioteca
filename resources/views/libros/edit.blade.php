@@ -3,6 +3,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
     <h1 class="text-2xl font-bold mb-4">Editar Libro</h1>
+    
     <form action="{{ route('libros.update', $libro->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -13,7 +14,7 @@
        
          <div class="mb-4">
             <label for="autor" class="block text-gray-700 text-sm font-bold mb-2">Autor:</label>
-            <input type="text" name="autor" id="autor" value="{{ old('autor') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="autor" id="autor" value="{{ old('autor', $libro->autor) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
 
         <div class="mb-4">

@@ -10,7 +10,7 @@ class LibrosController extends Controller
 {
     public function index()
 {
-    $libros = Libro::with('categoria')->orderBy('id', 'desc')->get();
+        $libros = Libro::with('categoria')->orderBy('id', 'desc')->paginate(2);
     return view('home.index', compact('libros'));
 }
 
@@ -49,4 +49,30 @@ class LibrosController extends Controller
        return view('libros.edit', compact('libro', 'categorias'));
    }
   
+   public function update(Request $request, $id)
+   {
+       $request->validate([
+           'nombre' => 'required|string|max:255',
+           'autor' => 'required|string|max:255',
+           'isbn' => 'nullable|string|max:100',
+           'editorial' => 'nullable|string|max:255',
+           'categoria' => 'required|exists:categorias,id',
+       ]);
+
+       $libro = Libro::findOrFail($id);
+       $libro->nombre = $request->nombre;
+       $libro->autor = $request->autor;
+       $libro->isbn = $request->isbn;
+       $libro->editorial = $request->editorial;
+       $libro->categoria_id = $request->categoria;
+       $libro->save();
+
+       return redirect()->route('home')->with('success', 'Libro actualizado correctamente.');
+   }
+   Public function destroy($id)
+   {
+       $libro = Libro::findOrFail($id);
+       $libro->delete();
+       return redirect()->route('home')->with('success', 'Libro eliminado correctamente.');
+   }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\LibrosController;
 // Página de inicio
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('welcome');
 
 // Dashboard (después de login)
 Route::get('/dashboard', function () {
@@ -43,4 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/libros/create', [LibrosController::class, 'create'])->name('libros.create');
     Route::post('/libros', [LibrosController::class, 'store'])->name('libros.store');
     Route::get('/libros/{id}/edit', [LibrosController::class, 'edit'])->name('libros.edit');
+    Route::put('/libros/{id}', [LibrosController::class, 'update'])->name('libros.update');
+    Route::delete('/libros/{id}', [LibrosController::class, 'destroy'])->name('libros.destroy');
+    
 });

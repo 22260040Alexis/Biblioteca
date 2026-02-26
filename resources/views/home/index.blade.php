@@ -52,7 +52,13 @@
     <div class="bg-white rounded-lg shadow-sm border">
         <div class="p-4 border-b flex items-center justify-between">
             <h2 class="text-lg font-medium text-gray-900">Lista de Libros</h2>
-            <div class="text-sm text-gray-500">Mostrando 1 a 3 de 1,247 resultados</div>
+            <div class="text-sm text-gray-500">
+                @if($libros->count())
+                    Mostrando {{ $libros->firstItem() }} a {{ $libros->lastItem() }} de {{ $libros->total() }} resultados
+                @else
+                    Mostrando 0 resultados
+                @endif
+            </div>
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
@@ -83,7 +89,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('libros.edit', $libro->id) }}" class="text-blue-600 hover:underline mr-4">Editar</a>
-                                <a href="#" class="text-red-600 hover:underline">Eliminar</a>
+                                
+                                <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -97,7 +108,11 @@
         </div>
 
         <!-- Pagination -->
-        <div class="p-4 border-t bg-white flex items-center justify-between">
+                 <div class="p-4 border-t bg-white flex items-center justify-between">
+
+                 </div>
+         {{ $libros->links() }}
+         <!--
             <div class="text-sm text-gray-600">Mostrando 1 a 3 de 1,247 resultados</div>
             <div class="flex items-center gap-2">
                 <button class="px-3 py-1 border rounded-md text-gray-600">Anterior</button>
@@ -109,6 +124,7 @@
                 <button class="px-3 py-1 border rounded-md text-gray-600">Siguiente</button>
             </div>
         </div>
+-->
     </div>
 
 </div>
