@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class AuthController extends Controller
 {
@@ -19,9 +20,12 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
+
+        $credentials['email'] = strtolower(trim($credentials['email']));
         
         // Intentar iniciar sesión con las credenciales proporcionadas
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
             // Si las credenciales son correctas, redirige a la página de inicio  
             return redirect('/home');
         }
@@ -41,15 +45,22 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
         ]);
+
+        $validatedData['email'] = strtolower(trim($validatedData['email']));
         
-        // Crear el usuario (sin hashear, Laravel lo hace automáticamente)
-        $user = \App\Models\User::create([
+        // Crear el usuario (el cast 'hashed' del modelo aplica el hash automáticamente)
+        $userData = [
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
-        ]);
+            'password' => Hash::make($validatedData['password']),
+            'username' => $validatedData['email'], // Asignar el email como username
+            'user_type' => 'user', // Asignar un tipo de usuario por defecto
+        ];
+
+        
         
         // Iniciar sesión automáticamente y redirigir
+        $user = \App\Models\User::create($userData);
         auth()->login($user);
         return redirect('/home');
     }

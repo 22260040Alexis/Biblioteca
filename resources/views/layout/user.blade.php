@@ -41,23 +41,6 @@
                 <span>Inicio</span>
             </a>
 
-            <a href="{{ route('usuarios.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
-                <i class="fas fa-users w-5"></i>
-                <span>Usuarios</span>
-            </a>
-
-             <a href="{{ route('categorias.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
-                <i class="fas fa-tags w-5"></i>
-                <span>Categorías</span>
-            </a>
-
-            <a href="{{ route('libros.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
-                <i class="fas fa-book w-5"></i>
-              <span>Libros</span>
-            </a>
-
-        
-
             <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
                 <i class="fas fa-hand-holding-heart w-5"></i>
                 <span>Préstamos</span>
