@@ -8,7 +8,7 @@ class Libro extends Model
 {
 
 
-protected $table_name = 'libros';
+protected $table = 'libros';
     // 👇 ESTA ES LA RELACIÓN QUE DEBE EXISTIR
     public function categoria()
     {

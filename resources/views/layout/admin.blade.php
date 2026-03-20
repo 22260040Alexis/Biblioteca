@@ -58,7 +58,7 @@
 
         
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
+            <a href="{{ route('prestamos.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition text-gray-300 hover:text-white">
                 <i class="fas fa-hand-holding-heart w-5"></i>
                 <span>Préstamos</span>
             </a>

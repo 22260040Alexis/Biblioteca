@@ -33,7 +33,7 @@
                         <td class="py-2 px-4 border-b">{{ $usuario->user_type }}</td>
                         <td class="py-2 px-4 border-b">
                             <a href="{{ route('usuarios.edit', $usuario->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 inline-block">Editar</a>
-                            <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Eliminar</button>
+                            <a href="{{ route('usuarios.delete_confirm', $usuario->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block">Eliminar</a>
                         </td>
                     </tr>
                 @empty
