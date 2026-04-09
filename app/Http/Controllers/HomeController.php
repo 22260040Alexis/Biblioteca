@@ -13,7 +13,7 @@ class HomeController extends Controller
         $user = auth()->user();
         if ($user->user_type === 'admin') {
     
-        $libros = Libro::paginate(2); // Obtener todos los libros y paginarlos
+        $libros = Libro::paginate(2);
         return view('home.index', compact('libros'));
         } else {
             return view('home.index_user');

@@ -10,23 +10,22 @@
             </div>
         @endif
         <a href="{{ route('categorias.create') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded">Agregar categoría</a>
-    </div>
-    <table class="min-w-full bg-white border">
-        <thead>
+    
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
             <tr>
-                <th class="py-2 px-4 border-b">ID</th>
-                <th class="py-2 px-4 border-b">Nombre</th>
-                <th class="py-2 px-4 border-b">Descripción</th>
-                <th class="py-2 px-4 border-b">Acciones</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white divide-y divide-gray-200">
             @foreach ($categorias as $categoria)
             <tr>
-                <td class="py-2 px-4 border-b">{{ $categoria->id }}</td>
-                <td class="py-2 px-4 border-b">{{ $categoria->nombre }}</td>
-                <td class="py-2 px-4 border-b">{{ $categoria->descripcion }}</td>
-                <td class="py-2 px-4 border-b">
+                <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->nombre }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
                     <a href="{{ route('categorias.edit', $categoria->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 inline-block">Editar</a>
                     <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" class="inline-block">
                         @csrf
@@ -40,5 +39,6 @@
     </table>
     <div class="mt-4">
         {{ $categorias->links() }}
+        </div>
     </div>
 @endsection

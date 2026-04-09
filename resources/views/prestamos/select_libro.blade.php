@@ -19,7 +19,14 @@
             <select name="libro_id" id="libro_id" class="w-full border rounded px-3 py-2 mb-4">
                 <option value="">Seleccione un libro</option>
                 @foreach($libros as $libro)
-                    <option value="{{ $libro->id }}">{{ $libro->nombre }} ({{ $libro->autor }})</option>
+                    <option value="{{ $libro->id }}">
+                        {{ $libro->nombre }} ({{ $libro->autor }}) -
+                        @if((int) $libro->estatus === 1)
+                            Prestado
+                        @else
+                            Disponible
+                        @endif
+                    </option>
                 @endforeach
             </select>
             <input type="hidden" name="usuario_id" value="{{ $usuario->id }}">

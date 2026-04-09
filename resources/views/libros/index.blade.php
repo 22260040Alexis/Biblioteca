@@ -33,7 +33,13 @@
                 <td class="py-2 px-4 border-b">{{ $book->categoria ? $book->categoria->nombre : '-' }}</td>
                 <td class="py-2 px-4 border-b">{{ $book->isbn ?? '-' }}</td>
                 <td class="py-2 px-4 border-b">{{ $book->editorial ?? '-' }}</td>
-                <td class="py-2 px-4 border-b">{{ $book->estatus ? 'Activo' : 'Inactivo' }}</td>
+                <td class="py-2 px-4 border-b">
+                    @if((int) $book->estatus === 1)
+                        Prestado
+                    @else
+                        Disponible
+                    @endif
+                </td>
             </tr>
             @empty
             <tr>

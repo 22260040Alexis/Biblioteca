@@ -46,12 +46,8 @@ class PrestamosController extends Controller
     public function select_libro(Request $request)
     {
         $usuario_id = $request->input('usuario_id');
-        if (empty($usuario_id)) {
-            return redirect()->route('prestamos.create')->with('error', 'Debe seleccionar un usuario primero.');
-        }
-
         $usuario = User::findOrFail($usuario_id);
-        $libros = Libro::all();
+        $libros = Libro::where('estatus', 0)->orderBy('id', 'asc')->get();
 
         return view('prestamos.select_libro', compact('usuario', 'libros'));
     }
@@ -67,6 +63,18 @@ class PrestamosController extends Controller
         \DB::beginTransaction();
 
         try {
+            $libro = Libro::findOrFail($request->input('libro_id'));
+
+            if ((int) $libro->estatus === 1) {
+                \DB::rollBack();
+
+                $usuario = User::findOrFail($request->input('usuario_id'));
+                $libros = Libro::where('estatus', 0)->orderBy('id', 'asc')->get();
+
+                return view('prestamos.select_libro', compact('usuario', 'libros'))
+                    ->with('error', 'El libro seleccionado ya no esta disponible.');
+            }
+
             $prestamo = new Prestamo();
             $prestamo->usuario_id = $request->input('usuario_id');
             $prestamo->libro_id = $request->input('libro_id');
@@ -85,5 +93,27 @@ class PrestamosController extends Controller
         
 
         return redirect()->route('prestamos.index')->with('success', 'Préstamo registrado exitosamente.');
+    }
+
+    public function entregar($id)
+    {
+        \DB::beginTransaction();
+        try{
+        $prestamo = Prestamo::findOrFail($id);
+        $prestamo->estado = 'entregado';
+        $prestamo->fecha_entrega = now();
+        $prestamo->save();
+
+        $libro = Libro::findOrFail($prestamo->libro_id);
+        $libro->estatus = 0; // Marcar como disponible
+        $libro->save();
+
+        \DB::commit();
+    } catch (\Exception $e) {
+        \DB::rollBack();
+        return redirect()->route('prestamos.index')->with('error', 'Error al registrar el prestamo.');
+    }
+
+        return redirect()->route('prestamos.index')->with('success', 'Libro entregado exitosamente.');
     }
 }

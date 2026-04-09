@@ -36,7 +36,7 @@ class LibrosController extends Controller
     $libro->isbn = $request->isbn;
     $libro->editorial = $request->editorial;
     $libro->categoria_id = $request->categoria;
-    $libro->estatus = 1; // Valor por defecto (activo/disponible)
+    $libro->estatus = 0; // Valor por defecto (disponible)
     $libro->save();
 
     return redirect()->route('home')->with('success', 'Libro agregado correctamente.');

@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Libro extends Model
 {
+    protected $table = 'libros';
+    protected $attributes = [
+        'estatus' => 0,
+    ];
 
-
-protected $table = 'libros';
-    // 👇 ESTA ES LA RELACIÓN QUE DEBE EXISTIR
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');

@@ -73,18 +73,18 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                       @if(isset($libros) && count($libros) > 0)
+                       @if(isset($libros) && count($libros) > 1)
                         @foreach($libros as $libro)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $libro->nombre }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $libro->autor }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $libro->isbn ?? '—' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">{{ $libro->categoria?->nombre ?? 'General' }}</span></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                @if((int) $libro->estatus === 1)
-                                    <span class="text-green-600 font-medium">Disponible</span>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if((int) $libro->estatus === 0)
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Disponible</span>
                                 @else
-                                    <span class="text-red-600 font-medium">No disponible</span>
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Prestado</span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
