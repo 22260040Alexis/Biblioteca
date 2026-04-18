@@ -3,16 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Libro;        // 👈 ESTA LÍNEA ES LA QUE FALTA
-use App\Models\Categoria;     // Esta ya la tienes
+use App\Models\Libro;
+use App\Models\Categoria;
+use App\Models\User;
+use App\Models\Prestamo;
 
 class LibrosController extends Controller
 {
     public function index()
-{
-        $libros = Libro::with('categoria')->orderBy('id', 'desc')->paginate(2);
-    return view('home.index', compact('libros'));
-}
+    {
+        $libros = Libro::with('categoria')->orderBy('id', 'desc')->paginate(5);
+        $total_libros = Libro::count();
+        $libros_pestados = Libro::where('estatus', 1)->count();
+        $total_usuarios = User::count();
+        $devoluciones_pendientes = Prestamo::where('estado', 'pendiente')->count();
+
+        return view('home.index', compact(
+            'libros',
+            'total_libros',
+            'libros_pestados',
+            'total_usuarios',
+            'devoluciones_pendientes'
+        ));
+    }
 
     public function create()
     {

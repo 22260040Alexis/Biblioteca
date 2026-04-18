@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -81,5 +82,45 @@ class UsuariosController extends Controller
         $usuario->delete();
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente.');
+    }
+
+    public function profile()
+    {
+        $usuario = Auth::user();
+
+        return view('usuarios.profile', compact('usuario'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $usuario = Auth::user();
+
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $usuario->name = $data['nombre'];
+        $usuario->save();
+
+        return redirect()->route('usuarios.profile')->with('success', 'Perfil actualizado correctamente.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $usuario = Auth::user();
+
+        $data = $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:6|confirmed',
+        ]);
+
+        if (!Hash::check($data['current_password'], $usuario->password)) {
+            return redirect()->route('usuarios.profile')->with('error', 'La contrasena actual no es correcta.');
+        }
+
+        $usuario->password = bcrypt($data['new_password']);
+        $usuario->save();
+
+        return redirect()->route('usuarios.profile')->with('success', 'Contrasena actualizada correctamente.');
     }
 }

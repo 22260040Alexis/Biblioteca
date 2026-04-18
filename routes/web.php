@@ -31,6 +31,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [UsuariosController::class, 'profile'])->name('usuarios.profile');
+    Route::put('/profile', [UsuariosController::class, 'updateProfile'])->name('usuarios.update_profile');
+    Route::put('/profile/password', [UsuariosController::class, 'updatePassword'])->name('usuarios.update_password');
 
     // Rutas para categorias
     Route::get('/categorias', [CategoriasController::class, 'index'])->name('categorias.index');
