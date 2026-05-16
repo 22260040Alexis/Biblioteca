@@ -29,9 +29,9 @@
                 <form class="space-y-5" action="{{ route('login') }}" method="POST">
                     @csrf
                     <!-- Mostrar errores -->
-                    @if ($errors->any())
+                    @if ($errors->login->any())
                         <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
-                            @foreach ($errors->all() as $error)
+                            @foreach ($errors->login->all() as $error)
                                 <p class="text-sm text-red-600">{{ $error }}</p>
                             @endforeach
                         </div>
@@ -105,6 +105,14 @@
                 
                 <form class="space-y-5" action="{{ route('register') }}" method="POST">
                     @csrf
+                    @if ($errors->register->any())
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                            @foreach ($errors->register->all() as $error)
+                                <p class="text-sm text-red-600">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <!-- Nombre y Apellido - Grid 2 columnas -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -112,6 +120,7 @@
                             <input type="text" 
                                    id="name" 
                                    name="name" 
+                                   value="{{ old('name') }}"
                                    placeholder="Tu nombre"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
                         </div>
@@ -124,6 +133,7 @@
                         <input type="email" 
                                id="email-registro" 
                                name="email" 
+                               value="{{ old('email') }}"
                                placeholder="usuario@ejemplo.com"
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 text-gray-900 placeholder-gray-400 text-sm">
                         <p class="text-xs text-gray-500 mt-1">Usaremos este email para contactarte</p>
